@@ -37,49 +37,10 @@ Globals:
         POWERTOOLS_METRICS_NAMESPACE: congito-api-gateway
 
 Resources:
-  CognitoUserPool:
-    Type: AWS::Cognito::UserPool
-    DeletionPolicy: Delete
-    UpdateReplacePolicy: Delete
-
-  CognitoUserPoolDomain:
-    Type: AWS::Cognito::UserPoolDomain
-    Properties:
-      UserPoolId: !Ref CognitoUserPool
-      Domain: andmoredev-apig-cgnto
-
-  PostmanResourceServer:
-    Type: AWS::Cognito::UserPoolResourceServer
-    Properties:
-      UserPoolId: !Ref CognitoUserPool
-      Identifier: test
-      Name: Automation
-      Scopes:
-        - ScopeName: postman
-          ScopeDescription: Scope used to test endpoints with postman
-
-  CognitoTestAutomationClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      UserPoolId: !Ref CognitoUserPool
-      GenerateSecret: true
-      AllowedOAuthFlows:
-        - client_credentials
-      AllowedOAuthScopes:
-        - test/postman
-      AllowedOAuthFlowsUserPoolClient: true
-
   API:
     Type: AWS::Serverless::Api
     Properties:
       StageName: api
-      Auth:
-        DefaultAuthorizer: ClientCognitoAuthorizer
-        Authorizers:
-          ClientCognitoAuthorizer:
-            UserPoolArn: !GetAtt CognitoUserPool.Arn
-            AuthorizationScopes:
-              - test/postman
       DefinitionBody:
         Fn::Transform:
           Name: AWS::Include
