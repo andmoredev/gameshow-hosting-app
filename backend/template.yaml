@@ -71,10 +71,6 @@ Resources:
     Metadata: *esbuild
 
 Outputs:
-  CongnitoUserPoolURL:
-    Description: URI to be used to setup external federated IDPs
-    Value: !Sub https://${CognitoUserPoolDomain}.auth.${AWS::Region}.amazoncognito.com
-
   ApiURL:
     Description: API URL
     Value: !Sub https://${API}.execute-api.${AWS::Region}.amazonaws.com/api
