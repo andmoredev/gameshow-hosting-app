@@ -1,0 +1,13 @@
+version = 0.1
+[default]
+[default.build]
+[default.build.parameters]
+cached="true"
+parallel="true"
+
+[default.deploy.parameters]
+stack_name = "cognito-api-gateway"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+]
+image_repositories = []
